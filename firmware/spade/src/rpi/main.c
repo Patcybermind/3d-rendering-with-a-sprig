@@ -189,7 +189,7 @@ int main() {
 					" sprig.hackclub.com \n");
   render_errorbuf();
   st7735_fill_start();
-  render(st7735_fill_send);
+  render(st7735_fill_send); // test can be removed
   st7735_fill_finish();
 
   load_new_scripts();
