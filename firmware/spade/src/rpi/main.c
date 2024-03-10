@@ -168,7 +168,7 @@ int main() {
   jerry_init(JERRY_INIT_MEM_STATS);
   init(sprite_free_jerry_object); // TODO: document
 
-  sleep_ms(5000);
+  
   
 
 
