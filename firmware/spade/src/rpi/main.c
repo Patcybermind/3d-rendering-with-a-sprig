@@ -149,6 +149,10 @@ static void core1_entry(void) {
   }
 }
 
+// Wait for a game to be uploaded. // needed for load new scripts
+static int load_new_scripts(void) {
+  return upl_stdin_read();
+}
 
 
 int main() {
@@ -160,8 +164,15 @@ int main() {
   power_lights();   // Turn on the power lights
   stdio_init_all(); // Init serial port
   st7735_init();    // Init display
+  // Init JerryScript
+  jerry_init(JERRY_INIT_MEM_STATS);
+  init(sprite_free_jerry_object); // TODO: document
 
-strcpy(errorbuf, "                    \n"
+  sleep_ms(5000);
+  
+
+
+  strcpy(errorbuf, "                    \n"
 					"                    \n"
 					"                    \n"
 					"                    \n"
@@ -176,10 +187,12 @@ strcpy(errorbuf, "                    \n"
 					"                    \n"
 					"                    \n"
 					" sprig.hackclub.com \n");
-render_errorbuf();
-st7735_fill_start();
-render(st7735_fill_send);
-st7735_fill_finish();
+  render_errorbuf();
+  st7735_fill_start();
+  render(st7735_fill_send);
+  st7735_fill_finish();
+
+  load_new_scripts();
 
   return 0;
 }
