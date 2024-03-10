@@ -193,6 +193,29 @@ int main() {
   st7735_fill_finish();
 
   load_new_scripts();
+  sleep_ms(5000);
+
+  strcpy(errorbuf, "                    \n"
+					"                    \n"
+					"                    \n"
+					"                    \n"
+					"                    \n"
+					"                    \n"
+					"                    \n"
+					"   STARTING NOW!    \n"
+					"                    \n"
+					"                    \n"
+					"                    \n"
+					"                    \n"
+					"                    \n"
+					"                    \n"
+					" sprig.hackclub.com \n");
+  render_errorbuf();
+  st7735_fill_start();
+  render(st7735_fill_send);
+  st7735_fill_finish();
+
+  load_new_scripts();
 
   return 0;
 }
