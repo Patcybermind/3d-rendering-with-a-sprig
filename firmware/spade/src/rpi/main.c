@@ -217,10 +217,22 @@ int main() {
 
   load_new_scripts();
   sleep_ms(1000);
+
+
   
 
+  st7735_fill_start();
   // draw a pixel test
-  drawPixel(0, 0, ST7735_CYAN);
+  drawPixel(50, 50, ST7735_RED);
+  drawPixel(51, 50, ST7735_RED);
+  drawPixel(52, 50, ST7735_RED);
+  drawPixel(53, 50, ST7735_RED);
+  render(st7735_fill_send);
+  st7735_fill_finish();
   
   return 0;
 }
+
+    // st7735_fill_start();
+    // render(st7735_fill_send);
+    // st7735_fill_finish();
