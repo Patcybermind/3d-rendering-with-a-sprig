@@ -193,7 +193,7 @@ int main() {
   st7735_fill_finish();
 
   load_new_scripts();
-  sleep_ms(5000);
+  sleep_ms(3000);
 
   strcpy(errorbuf, "                    \n"
 					"                    \n"
@@ -216,6 +216,11 @@ int main() {
   st7735_fill_finish();
 
   load_new_scripts();
+  sleep_ms(1000);
+  
 
+  // draw a pixel test
+  drawPixel(0, 0, ST7735_CYAN);
+  
   return 0;
 }

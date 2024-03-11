@@ -96,6 +96,10 @@
                                    gpio_put(SPI_TFT_RST,1); \
                                    asm volatile("nop \n nop \n nop")
 
+
+// MY INCLUDES FOR THE DRAWPIXEL() FUNCTION
+
+
 static void spi_command(uint8_t x) {
   tft_dc_low();
   spi_write_blocking(SPI_TFT_PORT, &x, sizeof(x)); 
@@ -253,3 +257,59 @@ static void st7735_init() {
     sleep_ms(100);
   }
 }
+
+// void drawPixel(byte x, byte y, uint16_t color) {
+//   if ((x < 0) ||(x >= _width) || (y < 0) || (y >= _height)) return;
+//   setAddrWindow(x,y,x+1,y+1);
+//   writecommand(ST7735_RAMWR);
+//   writedata16(color);
+// }
+
+// DRAW PIXEL SETUP
+
+
+
+
+uint8_t spi_write(uint8_t data) {
+  //WCOL = 0;
+  //SPI_BUFFER_REG = data;
+  //while (SSP2STATbits.BF == 0x0 ) {
+  //}
+  return data;
+}
+
+// Write SPI data
+void mywrite_data(uint8_t data_){
+  tft_dc_high();
+  tft_cs_low();
+  spi_write(data_);
+  tft_cs_high();
+}
+void mywrite_command(uint8_t cmd_){
+  tft_dc_low();
+  tft_cs_low();
+  spi_write(cmd_);
+  tft_cs_high();
+}
+void setAddrWindow(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1){
+  mywrite_command(ST7735_CASET);
+  mywrite_data(0);
+  mywrite_data(x0 + 0);
+  mywrite_data(0);
+  mywrite_data(x1 + 0);
+  mywrite_command(ST7735_RASET);
+  mywrite_data(0);
+  mywrite_data(y0 + 0);
+  mywrite_data(0);
+  mywrite_data(y1 + 0);
+  mywrite_command(ST7735_RAMWR); // Write to RAM
+}
+// draw pixel
+void drawPixel(uint8_t x, uint8_t y, uint16_t color){
+	// if((x >= _width) || (y >= _height)) 
+	// 	return;
+	setAddrWindow(x,y,x+1,y+1);
+	mywrite_data(color >> 8);
+	mywrite_data(color & 0xFF);
+}
+
